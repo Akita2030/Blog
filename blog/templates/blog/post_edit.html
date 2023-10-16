@@ -4,13 +4,19 @@
 {% block content %}
 <header class="page-header">
     <div class="container">
-        <h1><a href="/">Django Girls Blog</a></h1>
+        <h1><a href="/">Django Blog</a></h1>
     </div>
 </header>
-    <h1>Edit Post: {{ post.title }}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" value="update">Save</button>
-    </form>
+<h1>Edit Post: {{ post.title }}</h1>
+
+{% if post.author == request.user %}
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" value="update">Save</button>
+  </form>
+{% else %}
+  <p>You cannot edit and delete this post.</p>
+{% endif %}
 {% endblock %}
+

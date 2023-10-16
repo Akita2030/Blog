@@ -2,7 +2,7 @@
 {% block content %}
 <header class="page-header">
     <div class="container">
-        <h1><a href="/">Django Girls Blog</a></h1>
+        <h1><a href="/">Django Blog</a></h1>
     </div>
 </header>
   <article class="post">
@@ -10,4 +10,10 @@
     <p>{{ object.author }} | {{ object.pub_date }}</p>
     <p>{{ object.text }}</p>
   </article>
+  {% if post.author == request.user %}
+  <a href="{% url 'post_edit' pk=post.pk %}" class="btn btn-primary">Edit</a>
+  <a href="{% url 'post_delete' pk=post.pk %}" class="btn btn-primary">Delete</a>
+  {% else %}
+  <p>You cannot edit this post.</p>
+  {% endif %}
 {% endblock %}

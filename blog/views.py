@@ -1,20 +1,13 @@
-from typing import Any
-from django.forms.models import BaseModelForm
-from django.http import HttpRequest, HttpResponse
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post, Category,User
-from .forms import PostForm
 from django.utils import timezone
 from django.views.generic import (ListView,
                                 DetailView,
                                 UpdateView,
-                                CreateView)
-
-
-
-
-
+                                CreateView,
+                                DeleteView)
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -46,6 +39,10 @@ class PostUpdateView(UpdateView):
     fields = ["title", 'text']
     template_name = 'blog/post_edit.html'
 
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user)
+
+
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
@@ -60,6 +57,12 @@ class PostCreateView(LoginRequiredMixin, CreateView):
      
         fields.save()
         return super().form_valid(form)
+    
+class PostDeleteView(DeleteView):
+    model = Post
+    success_url = '/'
+    template_name = 'blog/post_delete.html'
+
         
 # def post_list(request):
 #     posts = Post.objects.all()

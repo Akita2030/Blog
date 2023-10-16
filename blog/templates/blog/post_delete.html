@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<header class="page-header">
+    <div class="container">
+        <h1><a href="/">Django Blog</a></h1>
+    </div>
+</header>
+  <h2>Удаление {{ object }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    <p>Вы уверены, что хотите удалить {{ object }}?</p>
+    <input type="submit" class="btn btn-danger" value="Удалить">
+    <a href="{% url 'post_list' %}" class="btn btn-primary">Отмена</a>
+  </form>
+{% endblock %}

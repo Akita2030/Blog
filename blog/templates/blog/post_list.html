@@ -5,30 +5,29 @@
 
 <header class="page-header">
     <div class="container">
-        <h1><a href="/">Django Girls Blog</a></h1>
+        <h1><a href="/">Django Blog</a></h1>
     </div>
 </header>
 
     <main class="container">
-        
+               
                 {% for post in object_list %}
                     <article class="post">
                         <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
                         <time class="date">
                             Published: {{ post.pub_date }}
-                            <a href="{% url 'post_edit' pk=post.pk %}" class="btn btn-primary">Edit</a>
+                            
                         </time>
                         
                         <p>{{ post.text|linebreaksbr }}</p>
                     </article>
                 {% endfor %}
+                
            
     </main>
     
     
 
-    <aside>
-        <a class="btn btn-primary" href="{% url 'post_create' %}">Create New Post</a>
-    </aside>
+    
 {% endblock %}
 
